@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wd.cs.dao.DocBiyinMapper" >
+  <resultMap id="BaseResultMap" type="com.wd.cs.po.DocBiyin" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="by_journal" property="byJournal" jdbcType="VARCHAR" />
+    <result column="by_title" property="byTitle" jdbcType="VARCHAR" />
+    <result column="by_author" property="byAuthor" jdbcType="VARCHAR" />
+    <result column="by_volume" property="byVolume" jdbcType="VARCHAR" />
+    <result column="by_issue" property="byIssue" jdbcType="VARCHAR" />
+    <result column="by_pages" property="byPages" jdbcType="VARCHAR" />
+    <result column="by_source" property="bySource" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, by_journal, by_title, by_author, by_volume, by_issue, by_pages, by_source
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wd.cs.po.DocBiyinExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from doc_biyin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from doc_biyin
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from doc_biyin
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wd.cs.po.DocBiyinExample" >
+    delete from doc_biyin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wd.cs.po.DocBiyin" >
+    insert into doc_biyin (id, by_journal, by_title, 
+      by_author, by_volume, by_issue, 
+      by_pages, by_source)
+    values (#{id,jdbcType=VARCHAR}, #{byJournal,jdbcType=VARCHAR}, #{byTitle,jdbcType=VARCHAR}, 
+      #{byAuthor,jdbcType=VARCHAR}, #{byVolume,jdbcType=VARCHAR}, #{byIssue,jdbcType=VARCHAR}, 
+      #{byPages,jdbcType=VARCHAR}, #{bySource,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wd.cs.po.DocBiyin" >
+    insert into doc_biyin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="byJournal != null" >
+        by_journal,
+      </if>
+      <if test="byTitle != null" >
+        by_title,
+      </if>
+      <if test="byAuthor != null" >
+        by_author,
+      </if>
+      <if test="byVolume != null" >
+        by_volume,
+      </if>
+      <if test="byIssue != null" >
+        by_issue,
+      </if>
+      <if test="byPages != null" >
+        by_pages,
+      </if>
+      <if test="bySource != null" >
+        by_source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="byJournal != null" >
+        #{byJournal,jdbcType=VARCHAR},
+      </if>
+      <if test="byTitle != null" >
+        #{byTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="byAuthor != null" >
+        #{byAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="byVolume != null" >
+        #{byVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="byIssue != null" >
+        #{byIssue,jdbcType=VARCHAR},
+      </if>
+      <if test="byPages != null" >
+        #{byPages,jdbcType=VARCHAR},
+      </if>
+      <if test="bySource != null" >
+        #{bySource,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wd.cs.po.DocBiyinExample" resultType="java.lang.Integer" >
+    select count(*) from doc_biyin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update doc_biyin
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byJournal != null" >
+        by_journal = #{record.byJournal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byTitle != null" >
+        by_title = #{record.byTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byAuthor != null" >
+        by_author = #{record.byAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byVolume != null" >
+        by_volume = #{record.byVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byIssue != null" >
+        by_issue = #{record.byIssue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byPages != null" >
+        by_pages = #{record.byPages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bySource != null" >
+        by_source = #{record.bySource,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update doc_biyin
+    set id = #{record.id,jdbcType=VARCHAR},
+      by_journal = #{record.byJournal,jdbcType=VARCHAR},
+      by_title = #{record.byTitle,jdbcType=VARCHAR},
+      by_author = #{record.byAuthor,jdbcType=VARCHAR},
+      by_volume = #{record.byVolume,jdbcType=VARCHAR},
+      by_issue = #{record.byIssue,jdbcType=VARCHAR},
+      by_pages = #{record.byPages,jdbcType=VARCHAR},
+      by_source = #{record.bySource,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wd.cs.po.DocBiyin" >
+    update doc_biyin
+    <set >
+      <if test="byJournal != null" >
+        by_journal = #{byJournal,jdbcType=VARCHAR},
+      </if>
+      <if test="byTitle != null" >
+        by_title = #{byTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="byAuthor != null" >
+        by_author = #{byAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="byVolume != null" >
+        by_volume = #{byVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="byIssue != null" >
+        by_issue = #{byIssue,jdbcType=VARCHAR},
+      </if>
+      <if test="byPages != null" >
+        by_pages = #{byPages,jdbcType=VARCHAR},
+      </if>
+      <if test="bySource != null" >
+        by_source = #{bySource,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wd.cs.po.DocBiyin" >
+    update doc_biyin
+    set by_journal = #{byJournal,jdbcType=VARCHAR},
+      by_title = #{byTitle,jdbcType=VARCHAR},
+      by_author = #{byAuthor,jdbcType=VARCHAR},
+      by_volume = #{byVolume,jdbcType=VARCHAR},
+      by_issue = #{byIssue,jdbcType=VARCHAR},
+      by_pages = #{byPages,jdbcType=VARCHAR},
+      by_source = #{bySource,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

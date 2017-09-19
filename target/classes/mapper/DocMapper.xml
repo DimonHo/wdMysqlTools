@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wd.cs.dao.DocMapper" >
+  <resultMap id="BaseResultMap" type="com.wd.cs.po.Doc" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="jguid" property="jguid" jdbcType="VARCHAR" />
+    <result column="doc_title" property="docTitle" jdbcType="VARCHAR" />
+    <result column="doc_title_translated" property="docTitleTranslated" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="DATE" />
+    <result column="ptype" property="ptype" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="ut_wos" property="utWos" jdbcType="VARCHAR" />
+    <result column="book_doi" property="bookDoi" jdbcType="VARCHAR" />
+    <result column="doi" property="doi" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="volume" property="volume" jdbcType="VARCHAR" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+    <result column="page_range" property="pageRange" jdbcType="VARCHAR" />
+    <result column="page_num" property="pageNum" jdbcType="INTEGER" />
+    <result column="cites_inwos" property="citesInwos" jdbcType="INTEGER" />
+    <result column="cites" property="cites" jdbcType="INTEGER" />
+    <result column="abstract_info" property="abstractInfo" jdbcType="VARCHAR" />
+    <result column="biyin_id" property="biyinId" jdbcType="VARCHAR" />
+    <result column="spider_id" property="spiderId" jdbcType="VARCHAR" />
+    <result column="fund" property="fund" jdbcType="VARCHAR" />
+    <result column="fund_text" property="fundText" jdbcType="VARCHAR" />
+    <result column="references_num" property="referencesNum" jdbcType="INTEGER" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="DATE" />
+    <result column="publisher_city" property="publisherCity" jdbcType="VARCHAR" />
+    <result column="publisher_address" property="publisherAddress" jdbcType="VARCHAR" />
+    <result column="issnue_spe" property="issnueSpe" jdbcType="VARCHAR" />
+    <result column="series_title" property="seriesTitle" jdbcType="VARCHAR" />
+    <result column="series_sub_title" property="seriesSubTitle" jdbcType="VARCHAR" />
+    <result column="conference_title" property="conferenceTitle" jdbcType="VARCHAR" />
+    <result column="conference_ab" property="conferenceAb" jdbcType="VARCHAR" />
+    <result column="conference_addr" property="conferenceAddr" jdbcType="VARCHAR" />
+    <result column="conference_date" property="conferenceDate" jdbcType="DATE" />
+    <result column="conference_support" property="conferenceSupport" jdbcType="VARCHAR" />
+    <result column="conference_sponsor" property="conferenceSponsor" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="rai" property="rai" jdbcType="VARCHAR" />
+    <result column="oai" property="oai" jdbcType="VARCHAR" />
+    <result column="iso_abb" property="isoAbb" jdbcType="VARCHAR" />
+    <result column="p_nomal" property="pNomal" jdbcType="VARCHAR" />
+    <result column="su_journal" property="suJournal" jdbcType="VARCHAR" />
+    <result column="doc_num" property="docNum" jdbcType="VARCHAR" />
+    <result column="chapter_num" property="chapterNum" jdbcType="VARCHAR" />
+    <result column="delivery_num" property="deliveryNum" jdbcType="VARCHAR" />
+    <result column="pmid" property="pmid" jdbcType="VARCHAR" />
+    <result column="half_cites" property="halfCites" jdbcType="VARCHAR" />
+    <result column="use_num" property="useNum" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="validata" property="validata" jdbcType="INTEGER" />
+    <result column="last_update" property="lastUpdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, jguid, doc_title, doc_title_translated, year, ptype, language, ut_wos, book_doi, 
+    doi, url, volume, issue, page_range, page_num, cites_inwos, cites, abstract_info, 
+    biyin_id, spider_id, fund, fund_text, references_num, publisher, publish_date, publisher_city, 
+    publisher_address, issnue_spe, series_title, series_sub_title, conference_title, 
+    conference_ab, conference_addr, conference_date, conference_support, conference_sponsor, 
+    email, rai, oai, iso_abb, p_nomal, su_journal, doc_num, chapter_num, delivery_num, 
+    pmid, half_cites, use_num, file_name, validata, last_update
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wd.cs.po.DocExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from doc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from doc
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from doc
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wd.cs.po.DocExample" >
+    delete from doc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wd.cs.po.Doc" >
+    insert into doc (id, jguid, doc_title, 
+      doc_title_translated, year, ptype, 
+      language, ut_wos, book_doi, 
+      doi, url, volume, issue, 
+      page_range, page_num, cites_inwos, 
+      cites, abstract_info, biyin_id, 
+      spider_id, fund, fund_text, 
+      references_num, publisher, publish_date, 
+      publisher_city, publisher_address, issnue_spe, 
+      series_title, series_sub_title, conference_title, 
+      conference_ab, conference_addr, conference_date, 
+      conference_support, conference_sponsor, email, 
+      rai, oai, iso_abb, p_nomal, 
+      su_journal, doc_num, chapter_num, 
+      delivery_num, pmid, half_cites, 
+      use_num, file_name, validata, 
+      last_update)
+    values (#{id,jdbcType=VARCHAR}, #{jguid,jdbcType=VARCHAR}, #{docTitle,jdbcType=VARCHAR}, 
+      #{docTitleTranslated,jdbcType=VARCHAR}, #{year,jdbcType=DATE}, #{ptype,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{utWos,jdbcType=VARCHAR}, #{bookDoi,jdbcType=VARCHAR}, 
+      #{doi,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{volume,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+      #{pageRange,jdbcType=VARCHAR}, #{pageNum,jdbcType=INTEGER}, #{citesInwos,jdbcType=INTEGER}, 
+      #{cites,jdbcType=INTEGER}, #{abstractInfo,jdbcType=VARCHAR}, #{biyinId,jdbcType=VARCHAR}, 
+      #{spiderId,jdbcType=VARCHAR}, #{fund,jdbcType=VARCHAR}, #{fundText,jdbcType=VARCHAR}, 
+      #{referencesNum,jdbcType=INTEGER}, #{publisher,jdbcType=VARCHAR}, #{publishDate,jdbcType=DATE}, 
+      #{publisherCity,jdbcType=VARCHAR}, #{publisherAddress,jdbcType=VARCHAR}, #{issnueSpe,jdbcType=VARCHAR}, 
+      #{seriesTitle,jdbcType=VARCHAR}, #{seriesSubTitle,jdbcType=VARCHAR}, #{conferenceTitle,jdbcType=VARCHAR}, 
+      #{conferenceAb,jdbcType=VARCHAR}, #{conferenceAddr,jdbcType=VARCHAR}, #{conferenceDate,jdbcType=DATE}, 
+      #{conferenceSupport,jdbcType=VARCHAR}, #{conferenceSponsor,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{rai,jdbcType=VARCHAR}, #{oai,jdbcType=VARCHAR}, #{isoAbb,jdbcType=VARCHAR}, #{pNomal,jdbcType=VARCHAR}, 
+      #{suJournal,jdbcType=VARCHAR}, #{docNum,jdbcType=VARCHAR}, #{chapterNum,jdbcType=VARCHAR}, 
+      #{deliveryNum,jdbcType=VARCHAR}, #{pmid,jdbcType=VARCHAR}, #{halfCites,jdbcType=VARCHAR}, 
+      #{useNum,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{validata,jdbcType=INTEGER}, 
+      #{lastUpdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wd.cs.po.Doc" >
+    insert into doc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jguid != null" >
+        jguid,
+      </if>
+      <if test="docTitle != null" >
+        doc_title,
+      </if>
+      <if test="docTitleTranslated != null" >
+        doc_title_translated,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="ptype != null" >
+        ptype,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="utWos != null" >
+        ut_wos,
+      </if>
+      <if test="bookDoi != null" >
+        book_doi,
+      </if>
+      <if test="doi != null" >
+        doi,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="issue != null" >
+        issue,
+      </if>
+      <if test="pageRange != null" >
+        page_range,
+      </if>
+      <if test="pageNum != null" >
+        page_num,
+      </if>
+      <if test="citesInwos != null" >
+        cites_inwos,
+      </if>
+      <if test="cites != null" >
+        cites,
+      </if>
+      <if test="abstractInfo != null" >
+        abstract_info,
+      </if>
+      <if test="biyinId != null" >
+        biyin_id,
+      </if>
+      <if test="spiderId != null" >
+        spider_id,
+      </if>
+      <if test="fund != null" >
+        fund,
+      </if>
+      <if test="fundText != null" >
+        fund_text,
+      </if>
+      <if test="referencesNum != null" >
+        references_num,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="publishDate != null" >
+        publish_date,
+      </if>
+      <if test="publisherCity != null" >
+        publisher_city,
+      </if>
+      <if test="publisherAddress != null" >
+        publisher_address,
+      </if>
+      <if test="issnueSpe != null" >
+        issnue_spe,
+      </if>
+      <if test="seriesTitle != null" >
+        series_title,
+      </if>
+      <if test="seriesSubTitle != null" >
+        series_sub_title,
+      </if>
+      <if test="conferenceTitle != null" >
+        conference_title,
+      </if>
+      <if test="conferenceAb != null" >
+        conference_ab,
+      </if>
+      <if test="conferenceAddr != null" >
+        conference_addr,
+      </if>
+      <if test="conferenceDate != null" >
+        conference_date,
+      </if>
+      <if test="conferenceSupport != null" >
+        conference_support,
+      </if>
+      <if test="conferenceSponsor != null" >
+        conference_sponsor,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="rai != null" >
+        rai,
+      </if>
+      <if test="oai != null" >
+        oai,
+      </if>
+      <if test="isoAbb != null" >
+        iso_abb,
+      </if>
+      <if test="pNomal != null" >
+        p_nomal,
+      </if>
+      <if test="suJournal != null" >
+        su_journal,
+      </if>
+      <if test="docNum != null" >
+        doc_num,
+      </if>
+      <if test="chapterNum != null" >
+        chapter_num,
+      </if>
+      <if test="deliveryNum != null" >
+        delivery_num,
+      </if>
+      <if test="pmid != null" >
+        pmid,
+      </if>
+      <if test="halfCites != null" >
+        half_cites,
+      </if>
+      <if test="useNum != null" >
+        use_num,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="validata != null" >
+        validata,
+      </if>
+      <if test="lastUpdate != null" >
+        last_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="jguid != null" >
+        #{jguid,jdbcType=VARCHAR},
+      </if>
+      <if test="docTitle != null" >
+        #{docTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="docTitleTranslated != null" >
+        #{docTitleTranslated,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=DATE},
+      </if>
+      <if test="ptype != null" >
+        #{ptype,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="utWos != null" >
+        #{utWos,jdbcType=VARCHAR},
+      </if>
+      <if test="bookDoi != null" >
+        #{bookDoi,jdbcType=VARCHAR},
+      </if>
+      <if test="doi != null" >
+        #{doi,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="issue != null" >
+        #{issue,jdbcType=VARCHAR},
+      </if>
+      <if test="pageRange != null" >
+        #{pageRange,jdbcType=VARCHAR},
+      </if>
+      <if test="pageNum != null" >
+        #{pageNum,jdbcType=INTEGER},
+      </if>
+      <if test="citesInwos != null" >
+        #{citesInwos,jdbcType=INTEGER},
+      </if>
+      <if test="cites != null" >
+        #{cites,jdbcType=INTEGER},
+      </if>
+      <if test="abstractInfo != null" >
+        #{abstractInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="biyinId != null" >
+        #{biyinId,jdbcType=VARCHAR},
+      </if>
+      <if test="spiderId != null" >
+        #{spiderId,jdbcType=VARCHAR},
+      </if>
+      <if test="fund != null" >
+        #{fund,jdbcType=VARCHAR},
+      </if>
+      <if test="fundText != null" >
+        #{fundText,jdbcType=VARCHAR},
+      </if>
+      <if test="referencesNum != null" >
+        #{referencesNum,jdbcType=INTEGER},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="publisherCity != null" >
+        #{publisherCity,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherAddress != null" >
+        #{publisherAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="issnueSpe != null" >
+        #{issnueSpe,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesTitle != null" >
+        #{seriesTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesSubTitle != null" >
+        #{seriesSubTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceTitle != null" >
+        #{conferenceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceAb != null" >
+        #{conferenceAb,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceAddr != null" >
+        #{conferenceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceDate != null" >
+        #{conferenceDate,jdbcType=DATE},
+      </if>
+      <if test="conferenceSupport != null" >
+        #{conferenceSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceSponsor != null" >
+        #{conferenceSponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="rai != null" >
+        #{rai,jdbcType=VARCHAR},
+      </if>
+      <if test="oai != null" >
+        #{oai,jdbcType=VARCHAR},
+      </if>
+      <if test="isoAbb != null" >
+        #{isoAbb,jdbcType=VARCHAR},
+      </if>
+      <if test="pNomal != null" >
+        #{pNomal,jdbcType=VARCHAR},
+      </if>
+      <if test="suJournal != null" >
+        #{suJournal,jdbcType=VARCHAR},
+      </if>
+      <if test="docNum != null" >
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterNum != null" >
+        #{chapterNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null" >
+        #{deliveryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pmid != null" >
+        #{pmid,jdbcType=VARCHAR},
+      </if>
+      <if test="halfCites != null" >
+        #{halfCites,jdbcType=VARCHAR},
+      </if>
+      <if test="useNum != null" >
+        #{useNum,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="validata != null" >
+        #{validata,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdate != null" >
+        #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wd.cs.po.DocExample" resultType="java.lang.Integer" >
+    select count(*) from doc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update doc
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jguid != null" >
+        jguid = #{record.jguid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docTitle != null" >
+        doc_title = #{record.docTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docTitleTranslated != null" >
+        doc_title_translated = #{record.docTitleTranslated,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null" >
+        year = #{record.year,jdbcType=DATE},
+      </if>
+      <if test="record.ptype != null" >
+        ptype = #{record.ptype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.utWos != null" >
+        ut_wos = #{record.utWos,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookDoi != null" >
+        book_doi = #{record.bookDoi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doi != null" >
+        doi = #{record.doi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volume != null" >
+        volume = #{record.volume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issue != null" >
+        issue = #{record.issue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageRange != null" >
+        page_range = #{record.pageRange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageNum != null" >
+        page_num = #{record.pageNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.citesInwos != null" >
+        cites_inwos = #{record.citesInwos,jdbcType=INTEGER},
+      </if>
+      <if test="record.cites != null" >
+        cites = #{record.cites,jdbcType=INTEGER},
+      </if>
+      <if test="record.abstractInfo != null" >
+        abstract_info = #{record.abstractInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.biyinId != null" >
+        biyin_id = #{record.biyinId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spiderId != null" >
+        spider_id = #{record.spiderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fund != null" >
+        fund = #{record.fund,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fundText != null" >
+        fund_text = #{record.fundText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referencesNum != null" >
+        references_num = #{record.referencesNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.publisher != null" >
+        publisher = #{record.publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null" >
+        publish_date = #{record.publishDate,jdbcType=DATE},
+      </if>
+      <if test="record.publisherCity != null" >
+        publisher_city = #{record.publisherCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publisherAddress != null" >
+        publisher_address = #{record.publisherAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issnueSpe != null" >
+        issnue_spe = #{record.issnueSpe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seriesTitle != null" >
+        series_title = #{record.seriesTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seriesSubTitle != null" >
+        series_sub_title = #{record.seriesSubTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conferenceTitle != null" >
+        conference_title = #{record.conferenceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conferenceAb != null" >
+        conference_ab = #{record.conferenceAb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conferenceAddr != null" >
+        conference_addr = #{record.conferenceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conferenceDate != null" >
+        conference_date = #{record.conferenceDate,jdbcType=DATE},
+      </if>
+      <if test="record.conferenceSupport != null" >
+        conference_support = #{record.conferenceSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conferenceSponsor != null" >
+        conference_sponsor = #{record.conferenceSponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rai != null" >
+        rai = #{record.rai,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oai != null" >
+        oai = #{record.oai,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isoAbb != null" >
+        iso_abb = #{record.isoAbb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pNomal != null" >
+        p_nomal = #{record.pNomal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suJournal != null" >
+        su_journal = #{record.suJournal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docNum != null" >
+        doc_num = #{record.docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapterNum != null" >
+        chapter_num = #{record.chapterNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryNum != null" >
+        delivery_num = #{record.deliveryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pmid != null" >
+        pmid = #{record.pmid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.halfCites != null" >
+        half_cites = #{record.halfCites,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useNum != null" >
+        use_num = #{record.useNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileName != null" >
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validata != null" >
+        validata = #{record.validata,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastUpdate != null" >
+        last_update = #{record.lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update doc
+    set id = #{record.id,jdbcType=VARCHAR},
+      jguid = #{record.jguid,jdbcType=VARCHAR},
+      doc_title = #{record.docTitle,jdbcType=VARCHAR},
+      doc_title_translated = #{record.docTitleTranslated,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=DATE},
+      ptype = #{record.ptype,jdbcType=VARCHAR},
+      language = #{record.language,jdbcType=VARCHAR},
+      ut_wos = #{record.utWos,jdbcType=VARCHAR},
+      book_doi = #{record.bookDoi,jdbcType=VARCHAR},
+      doi = #{record.doi,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      volume = #{record.volume,jdbcType=VARCHAR},
+      issue = #{record.issue,jdbcType=VARCHAR},
+      page_range = #{record.pageRange,jdbcType=VARCHAR},
+      page_num = #{record.pageNum,jdbcType=INTEGER},
+      cites_inwos = #{record.citesInwos,jdbcType=INTEGER},
+      cites = #{record.cites,jdbcType=INTEGER},
+      abstract_info = #{record.abstractInfo,jdbcType=VARCHAR},
+      biyin_id = #{record.biyinId,jdbcType=VARCHAR},
+      spider_id = #{record.spiderId,jdbcType=VARCHAR},
+      fund = #{record.fund,jdbcType=VARCHAR},
+      fund_text = #{record.fundText,jdbcType=VARCHAR},
+      references_num = #{record.referencesNum,jdbcType=INTEGER},
+      publisher = #{record.publisher,jdbcType=VARCHAR},
+      publish_date = #{record.publishDate,jdbcType=DATE},
+      publisher_city = #{record.publisherCity,jdbcType=VARCHAR},
+      publisher_address = #{record.publisherAddress,jdbcType=VARCHAR},
+      issnue_spe = #{record.issnueSpe,jdbcType=VARCHAR},
+      series_title = #{record.seriesTitle,jdbcType=VARCHAR},
+      series_sub_title = #{record.seriesSubTitle,jdbcType=VARCHAR},
+      conference_title = #{record.conferenceTitle,jdbcType=VARCHAR},
+      conference_ab = #{record.conferenceAb,jdbcType=VARCHAR},
+      conference_addr = #{record.conferenceAddr,jdbcType=VARCHAR},
+      conference_date = #{record.conferenceDate,jdbcType=DATE},
+      conference_support = #{record.conferenceSupport,jdbcType=VARCHAR},
+      conference_sponsor = #{record.conferenceSponsor,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      rai = #{record.rai,jdbcType=VARCHAR},
+      oai = #{record.oai,jdbcType=VARCHAR},
+      iso_abb = #{record.isoAbb,jdbcType=VARCHAR},
+      p_nomal = #{record.pNomal,jdbcType=VARCHAR},
+      su_journal = #{record.suJournal,jdbcType=VARCHAR},
+      doc_num = #{record.docNum,jdbcType=VARCHAR},
+      chapter_num = #{record.chapterNum,jdbcType=VARCHAR},
+      delivery_num = #{record.deliveryNum,jdbcType=VARCHAR},
+      pmid = #{record.pmid,jdbcType=VARCHAR},
+      half_cites = #{record.halfCites,jdbcType=VARCHAR},
+      use_num = #{record.useNum,jdbcType=INTEGER},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      validata = #{record.validata,jdbcType=INTEGER},
+      last_update = #{record.lastUpdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wd.cs.po.Doc" >
+    update doc
+    <set >
+      <if test="jguid != null" >
+        jguid = #{jguid,jdbcType=VARCHAR},
+      </if>
+      <if test="docTitle != null" >
+        doc_title = #{docTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="docTitleTranslated != null" >
+        doc_title_translated = #{docTitleTranslated,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=DATE},
+      </if>
+      <if test="ptype != null" >
+        ptype = #{ptype,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="utWos != null" >
+        ut_wos = #{utWos,jdbcType=VARCHAR},
+      </if>
+      <if test="bookDoi != null" >
+        book_doi = #{bookDoi,jdbcType=VARCHAR},
+      </if>
+      <if test="doi != null" >
+        doi = #{doi,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="issue != null" >
+        issue = #{issue,jdbcType=VARCHAR},
+      </if>
+      <if test="pageRange != null" >
+        page_range = #{pageRange,jdbcType=VARCHAR},
+      </if>
+      <if test="pageNum != null" >
+        page_num = #{pageNum,jdbcType=INTEGER},
+      </if>
+      <if test="citesInwos != null" >
+        cites_inwos = #{citesInwos,jdbcType=INTEGER},
+      </if>
+      <if test="cites != null" >
+        cites = #{cites,jdbcType=INTEGER},
+      </if>
+      <if test="abstractInfo != null" >
+        abstract_info = #{abstractInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="biyinId != null" >
+        biyin_id = #{biyinId,jdbcType=VARCHAR},
+      </if>
+      <if test="spiderId != null" >
+        spider_id = #{spiderId,jdbcType=VARCHAR},
+      </if>
+      <if test="fund != null" >
+        fund = #{fund,jdbcType=VARCHAR},
+      </if>
+      <if test="fundText != null" >
+        fund_text = #{fundText,jdbcType=VARCHAR},
+      </if>
+      <if test="referencesNum != null" >
+        references_num = #{referencesNum,jdbcType=INTEGER},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publish_date = #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="publisherCity != null" >
+        publisher_city = #{publisherCity,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherAddress != null" >
+        publisher_address = #{publisherAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="issnueSpe != null" >
+        issnue_spe = #{issnueSpe,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesTitle != null" >
+        series_title = #{seriesTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesSubTitle != null" >
+        series_sub_title = #{seriesSubTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceTitle != null" >
+        conference_title = #{conferenceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceAb != null" >
+        conference_ab = #{conferenceAb,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceAddr != null" >
+        conference_addr = #{conferenceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceDate != null" >
+        conference_date = #{conferenceDate,jdbcType=DATE},
+      </if>
+      <if test="conferenceSupport != null" >
+        conference_support = #{conferenceSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="conferenceSponsor != null" >
+        conference_sponsor = #{conferenceSponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="rai != null" >
+        rai = #{rai,jdbcType=VARCHAR},
+      </if>
+      <if test="oai != null" >
+        oai = #{oai,jdbcType=VARCHAR},
+      </if>
+      <if test="isoAbb != null" >
+        iso_abb = #{isoAbb,jdbcType=VARCHAR},
+      </if>
+      <if test="pNomal != null" >
+        p_nomal = #{pNomal,jdbcType=VARCHAR},
+      </if>
+      <if test="suJournal != null" >
+        su_journal = #{suJournal,jdbcType=VARCHAR},
+      </if>
+      <if test="docNum != null" >
+        doc_num = #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterNum != null" >
+        chapter_num = #{chapterNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null" >
+        delivery_num = #{deliveryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pmid != null" >
+        pmid = #{pmid,jdbcType=VARCHAR},
+      </if>
+      <if test="halfCites != null" >
+        half_cites = #{halfCites,jdbcType=VARCHAR},
+      </if>
+      <if test="useNum != null" >
+        use_num = #{useNum,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="validata != null" >
+        validata = #{validata,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdate != null" >
+        last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wd.cs.po.Doc" >
+    update doc
+    set jguid = #{jguid,jdbcType=VARCHAR},
+      doc_title = #{docTitle,jdbcType=VARCHAR},
+      doc_title_translated = #{docTitleTranslated,jdbcType=VARCHAR},
+      year = #{year,jdbcType=DATE},
+      ptype = #{ptype,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      ut_wos = #{utWos,jdbcType=VARCHAR},
+      book_doi = #{bookDoi,jdbcType=VARCHAR},
+      doi = #{doi,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      volume = #{volume,jdbcType=VARCHAR},
+      issue = #{issue,jdbcType=VARCHAR},
+      page_range = #{pageRange,jdbcType=VARCHAR},
+      page_num = #{pageNum,jdbcType=INTEGER},
+      cites_inwos = #{citesInwos,jdbcType=INTEGER},
+      cites = #{cites,jdbcType=INTEGER},
+      abstract_info = #{abstractInfo,jdbcType=VARCHAR},
+      biyin_id = #{biyinId,jdbcType=VARCHAR},
+      spider_id = #{spiderId,jdbcType=VARCHAR},
+      fund = #{fund,jdbcType=VARCHAR},
+      fund_text = #{fundText,jdbcType=VARCHAR},
+      references_num = #{referencesNum,jdbcType=INTEGER},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      publisher_city = #{publisherCity,jdbcType=VARCHAR},
+      publisher_address = #{publisherAddress,jdbcType=VARCHAR},
+      issnue_spe = #{issnueSpe,jdbcType=VARCHAR},
+      series_title = #{seriesTitle,jdbcType=VARCHAR},
+      series_sub_title = #{seriesSubTitle,jdbcType=VARCHAR},
+      conference_title = #{conferenceTitle,jdbcType=VARCHAR},
+      conference_ab = #{conferenceAb,jdbcType=VARCHAR},
+      conference_addr = #{conferenceAddr,jdbcType=VARCHAR},
+      conference_date = #{conferenceDate,jdbcType=DATE},
+      conference_support = #{conferenceSupport,jdbcType=VARCHAR},
+      conference_sponsor = #{conferenceSponsor,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      rai = #{rai,jdbcType=VARCHAR},
+      oai = #{oai,jdbcType=VARCHAR},
+      iso_abb = #{isoAbb,jdbcType=VARCHAR},
+      p_nomal = #{pNomal,jdbcType=VARCHAR},
+      su_journal = #{suJournal,jdbcType=VARCHAR},
+      doc_num = #{docNum,jdbcType=VARCHAR},
+      chapter_num = #{chapterNum,jdbcType=VARCHAR},
+      delivery_num = #{deliveryNum,jdbcType=VARCHAR},
+      pmid = #{pmid,jdbcType=VARCHAR},
+      half_cites = #{halfCites,jdbcType=VARCHAR},
+      use_num = #{useNum,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      validata = #{validata,jdbcType=INTEGER},
+      last_update = #{lastUpdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
